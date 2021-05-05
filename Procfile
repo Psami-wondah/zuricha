@@ -1,2 +1,2 @@
-web: daphne WR.zurichat.asgi:application --port $PORT --bind 0.0.0.0 -v2
+web: daphne zurichat.asgi:application --port $PORT --bind 0.0.0.0 -v2
 chatworker: python manage.py runworker --settings=zurichat.settings -v2
