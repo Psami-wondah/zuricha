@@ -16,13 +16,12 @@ import chat.routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'zurichat.settings')
 django.setup()
-application= get_default_application()
-# application = ProtocolTypeRouter({
-#     "http": get_asgi_application(),
-#     'websocket': AuthMiddlewareStack(
-#         URLRouter(
-#             chat.routing.websocket_urlpatterns
-#         )
-#     ),
-# })
+application = ProtocolTypeRouter({
+    "http": get_default_application(),
+    'websocket': AuthMiddlewareStack(
+        URLRouter(
+            chat.routing.websocket_urlpatterns
+        )
+    ),
+})
 
