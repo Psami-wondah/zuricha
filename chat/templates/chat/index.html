@@ -9,9 +9,11 @@
 
 <body>
     {% if user.is_authenticated %}
-    What chat room would you like to enter?<br>
-    <input id="room-name-input" type="text" size="100"><br>
-    <input id="room-name-submit" type="button" value="Enter">
+        <div class="container">
+            <p class="text-info font-weight-bold">What chat room would you like to enter?</p><br>
+    <input id="room-name-input" type="text" size="100" class="form-control"><br>
+        <button id="room-name-submit" type="button" class="btn btn-info">Enter</button>
+        </div>
 
     <script>
         document.querySelector('#room-name-input').focus();
