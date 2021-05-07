@@ -1,4 +1,6 @@
-<html>
+{% extends 'chat/base.html' %}
+{% block content %}
+
 
 <head>
     <meta charset="utf-8"/>
@@ -10,4 +12,4 @@
 <div>
     <a href="{% url 'index' %}"><button type="submit" class="btn btn-danger">Click here to Join a chat room</button></a>
 </div>
-</html>
+{% endblock %}

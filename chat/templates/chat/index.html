@@ -1,11 +1,14 @@
 <!-- chat/templates/chat/index.html -->
+{% include 'chat/base.html' %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
     <title>ZuriCha</title>
 </head>
+
 <body>
+    {% if user.is_authenticated %}
     What chat room would you like to enter?<br>
     <input id="room-name-input" type="text" size="100"><br>
     <input id="room-name-submit" type="button" value="Enter">
@@ -23,5 +26,10 @@
             window.location.pathname = '/chat/' + roomName + '/';
         };
     </script>
+    {% else %}
+    <div class="col-md-8">
+    <p class="jumbotron text-info font-weight-bold">Please Login or register to join a room</p>
+    </div>
+    {% endif %}
 </body>
 </html>

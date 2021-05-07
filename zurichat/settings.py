@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-import os, environ
+import os, environ, sys
 from pathlib import Path
 env = environ.Env()
 environ.Env.read_env()
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'chat',
     'channels',
     'daphne',
+    'crispy_forms',
 
 ]
 
@@ -54,7 +55,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 ROOT_URLCONF = 'zurichat.urls'
 
 TEMPLATES = [
@@ -79,15 +80,25 @@ WSGI_APPLICATION = 'zurichat.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        'TEST': {
-            'NAME': os.path.join(BASE_DIR, 'db_test.sqlite3')
+if 'test' in sys.argv:
+    DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3'}}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': os.getenv('ENGINE'),
+            'NAME': os.getenv('NAME'),
+            'HOST': os.getenv('HOST'),
+            'PORT': os.getenv('PORT'),
+            'USER': os.getenv('USER'),
+            'PASSWORD': os.getenv('PASSWORD'),
+            'TEST': {
+                'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            },
+
+
         }
     }
-}
+
 
 
 # Password validation
@@ -128,7 +139,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS= [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS= [str(BASE_DIR.joinpath('static'))]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

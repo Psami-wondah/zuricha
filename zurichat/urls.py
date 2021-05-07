@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from chat.views import homepage
+from chat.views import homepage, login_request
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('chat/', include('chat.urls')),
-    path('', homepage, name='home')
+    path('', include('chat.urls')),
+
 ]
