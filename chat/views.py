@@ -1,10 +1,10 @@
-
+from django.shortcuts import get_object_or_404
 import json
 from django.utils.safestring import mark_safe
 from django.shortcuts import render, redirect
-
+from .models import Room
 from django.contrib.auth import login, logout, authenticate
-
+from .forms import NewRoomForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -14,7 +14,18 @@ from django.contrib import messages
 
 
 def index(request):
-    return render(request, 'chat/index.html', {})
+    room = Room.objects.all()
+    user = request.user
+    if request.method == 'POST':
+        form = NewRoomForm(request.POST)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.created_by = user
+            data.save()
+            return redirect('room', room_name= data.name)
+    else:
+        form = NewRoomForm()
+    return render(request, 'chat/index.html', {'room_form': form, 'room': room})
 
 @login_required()
 def room(request, room_name):

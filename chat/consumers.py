@@ -1,23 +1,26 @@
 import json
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
-from .models import Message
+from .models import Message, Room
 from django.contrib.auth.models import User
-
+from django.shortcuts import get_object_or_404
 class ChatConsumer(WebsocketConsumer):
 
     def fetch_messages(self, data):
         mess = Message()
-        messages = mess.last_30_messages()
+        messages = mess.last_50_messages()
+
         content = {
             'command': 'messages',
             'messages': self.messages_to_json(messages)
         }
         self.send_message(content)
     def new_message(self, data):
+        self.room = get_object_or_404(Room, name = data['room'])
         author = data['from']
         author_user = User.objects.filter(username=author)[0]
         message = Message.objects.create(
+            room= self.room,
             author = author_user,
             content= data['message']
         )
@@ -30,10 +33,12 @@ class ChatConsumer(WebsocketConsumer):
     def messages_to_json(self, messages):
         result=[]
         for message in messages:
-            result.append(self.message_to_json(message))
+            if str(message.room) == str(self.room_name):
+                result.append(self.message_to_json(message))
         return result
 
     def message_to_json(self, message):
+
         return {
             'author': message.author.username,
             'content': message.content,

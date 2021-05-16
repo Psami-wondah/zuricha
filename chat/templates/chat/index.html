@@ -1,37 +1,53 @@
 <!-- chat/templates/chat/index.html -->
-{% include 'chat/base.html' %}
+{% extends 'chat/base.html' %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
     <title>ZuriCha</title>
 </head>
-
+{% block content %}
 <body>
     {% if user.is_authenticated %}
         <div class="container">
-            <p class="text-info font-weight-bold">What chat room would you like to enter?</p><br>
-    <input id="room-name-input" type="text" size="100" class="form-control"><br>
-        <button id="room-name-submit" type="button" class="btn btn-info">Enter</button>
+            <p class="text-info font-weight-bold">What chat room would you like to create?</p><br>
+{#    <input id="room-name-input" type="text" size="100" class="form-control"><br>#}
+            <form class="form-control" method="POST" id="room-name-input">
+                {% csrf_token %}
+                {{ room_form|crispy }}
+                <button id="room-name-submit" type="submit" class="btn btn-info">Enter</button>
+            </form>
+
         </div>
-
-    <script>
-        document.querySelector('#room-name-input').focus();
-        document.querySelector('#room-name-input').onkeyup = function(e) {
-            if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#room-name-submit').click();
-            }
-        };
-
-        document.querySelector('#room-name-submit').onclick = function(e) {
-            var roomName = document.querySelector('#room-name-input').value;
-            window.location.pathname = '/chat/' + roomName + '/';
-        };
-    </script>
+        <br />
+        <br />
+    <div class="container">
+    <p class="font-weight-bold text-dark text-capitalize">Rooms</p>
+    {% for r in room %}
+        <a href="{% url 'room' r.name %}" class="text-info"><div class="jumbotron" style="border-radius: 15px"><h3 class="font-weight-bold">{{ post.title }}</h3>
+                <p class="text-info font-weight-bold">{{ r.name }}</p>
+                <span style="font-size: 14px" class="text-secondary">Created by {{ r.created_by }}</span></div></a>
+    {% endfor %}
+    </div>
+{#    <script>#}
+{#        document.querySelector('#room-name-input').focus();#}
+{#        document.querySelector('#room-name-input').onkeyup = function(e) {#}
+{#            if (e.keyCode === 13) {  // enter, return#}
+{#                document.querySelector('#room-name-submit').click();#}
+{#            }#}
+{#        };#}
+{##}
+{#        document.querySelector('#room-name-submit').onclick = function(e) {#}
+{#            var roomName = document.querySelector('#room-name-input').value;#}
+{#            window.location.pathname = '/chat/' + roomName + '/';#}
+{#        };#}
+{#    </script>#}
     {% else %}
     <div class="col-md-8">
-    <p class="jumbotron text-info font-weight-bold">Please Login or register to join a room</p>
+    <p class="jumbotron text-info font-weight-bold">Please Login or register to join or create a room</p>
     </div>
     {% endif %}
 </body>
+{% endblock %}
 </html>
