@@ -83,12 +83,14 @@
 {#      </div>#}
 {#    </div>#}
     <div class="content " >
-      <div class="contact-profile">
+      <div class="contact-profile container-fluid">
         <img src="{% static 'img/chay.png' %}" alt="" />
 
         <p class="font-weight-bold text-info">{{ user.username }}   </p>
 
           <a class="navbar-right" href="/logout"><button class="btn btn-info">Logout</button></a>
+
+          <a class="navbar-right" href="{% url 'index' %}"><button class="btn btn-outline-info">Rooms</button></a>
 
 {#        <div class="social-media">#}
 {#          <i class="fa fa-facebook" aria-hidden="true"></i>#}

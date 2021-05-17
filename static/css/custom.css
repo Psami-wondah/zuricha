@@ -526,6 +526,12 @@ body {
   float: left;
   font-size: 18px;
 }
+#frame .content .contact-profile a {
+  float: right;
+  font-size: 18px;
+  width: auto;
+  margin-left: 14px;
+}
 #frame .content .contact-profile .social-media {
   float: right;
 }

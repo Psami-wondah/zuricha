@@ -4,7 +4,9 @@ from django.contrib.auth.models import User
 class Room(models.Model):
     name = models.CharField(max_length=30, unique=True)
     created_by = models.ForeignKey(User, related_name='room', on_delete=models.CASCADE)
-
+    def clean(self):
+        if self.name:
+            self.name = self.name.replace(' ', '')
     def __str__(self):
         return self.name
 
@@ -17,5 +19,5 @@ class Message(models.Model):
     def __str__(self):
         return self.author.username
 
-    def last_50_messages(self):
-        return reversed(Message.objects.order_by('-timestamp')[:50])
+    def last_messages(self):
+        return reversed(Message.objects.order_by('-timestamp'))

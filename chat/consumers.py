@@ -8,7 +8,7 @@ class ChatConsumer(WebsocketConsumer):
 
     def fetch_messages(self, data):
         mess = Message()
-        messages = mess.last_50_messages()
+        messages = mess.last_messages()
 
         content = {
             'command': 'messages',
@@ -35,7 +35,7 @@ class ChatConsumer(WebsocketConsumer):
         for message in messages:
             if str(message.room) == str(self.room_name):
                 result.append(self.message_to_json(message))
-        return result
+        return result[:30]
 
     def message_to_json(self, message):
 
