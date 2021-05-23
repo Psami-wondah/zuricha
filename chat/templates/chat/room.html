@@ -31,16 +31,18 @@
       <div class="contact-profile container-fluid">
         <img src="{% static 'img/chay.png' %}" alt="" />
 
-        <p class="font-weight-bold text-info">{{ user.username }}   </p>
+        <p class="font-weight-bold text-info navbar-brand" style="margin-top: 10px">{{ user.username }}</p>
 
-          <p id="roomName">{{ room_name }}</p>
 
-          <a class="navbar-right" href="/logout"><button class="btn btn-info">Logout</button></a>
 
-          <a class="navbar-right" href="{% url 'index' %}"><button class="btn btn-outline-info">Rooms</button></a>
+          <a  href="/logout"><button class="btn btn-info">Logout</button></a>
+
+          <a  href="{% url 'index' %}"><button class="btn btn-outline-info">Rooms</button></a>
 
       </div>
-
+    <div class="room_name">
+        <p class="font-italic font-weight-bold text-info">{{ room_name }} </p>
+    </div>
       <div class="messages">
         <ul id="chat-log">
        <li class="sent">
@@ -55,9 +57,9 @@
           <p>Welcome to my shitty chat app.<span id="spa" class="shit">Zuricha Developer</span></p>
       </div>
 
-          <div class="message-input panel-footer">
+          <div class="message-input panel-foot">
 
-        <div class="col-sm-9 col-xs-9 ">
+        <div class="col-sm-11 col-xs-11 ">
           <textarea class="form-control" rows="1" placeholder="Write your message..." id="chat-message-input"></textarea>
         </div>
 
