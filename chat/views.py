@@ -14,7 +14,7 @@ from django.contrib import messages
 
 
 def index(request):
-    room = Room.objects.all()
+    room = reversed(Room.objects.all())
     user = request.user
     if request.method == 'POST':
         form = NewRoomForm(request.POST)
@@ -22,16 +22,18 @@ def index(request):
             data = form.save(commit=False)
             data.created_by = user
             data.save()
-            return redirect('room', room_name= data.name)
+            return redirect('room', room_name=data.name)
     else:
         form = NewRoomForm()
     return render(request, 'chat/index.html', {'room_form': form, 'room': room})
 
 @login_required()
 def room(request, room_name):
+    room_list = reversed(Room.objects.all())
     return render(request, 'chat/room.html', {
         'room_name': room_name,
         'username': mark_safe(json.dumps(request.user.username)),
+        'room': room_list,
     })
 
 def homepage(request):

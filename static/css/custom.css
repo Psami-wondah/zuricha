@@ -482,20 +482,25 @@ body {
   margin-right: 3px;
   font-size: 1em;
 }
-@media screen and (max-width: 735px) {
+@media screen and (max-width: 850px) {
   #frame #sidepanel #bottom-bar button i {
     font-size: 1.3em;
   }
-}
-@media screen and (max-width: 735px) {
   #frame #sidepanel #bottom-bar button span {
     display: none;
   }
+  #roomName {
+  margin-left: 28%;
+}
+}
+
+#roomName {
+  margin-left: 36%;
 }
 #frame .content {
   float: top;
   width: 100%;
-  height: 94%;
+  height: 90%;
   overflow: hidden;
   position: relative;
 }
@@ -526,6 +531,15 @@ body {
   float: left;
   font-size: 18px;
 }
+
+#frame .content .contact-profile p2 {
+  float: left;
+  margin-left: 50px;
+  position: fixed;
+
+
+}
+
 #frame .content .contact-profile a {
   float: right;
   font-size: 18px;
@@ -580,29 +594,43 @@ body {
 #frame .content .messages ul li.sent img {
   margin: 6px 8px 0 0;
 }
-#frame .content .messages ul li.sent p {
+#frame .content .messages ul li.sent p{
   background: #ffffff;
   color: black;
+  word-wrap: break-word;
 
 }
-#frame .content .messages ul li.sent span{
+
+.shit{
+  font-size: 1rem;
+  color: #95a5a6;
+  margin-left: 2%;
+  margin-top: 2%;
+}
+
+.p::after span{
   color: #676666;
-
-
 }
+/*#frame .content .messages ul li.sent .p > span{*/
+
+/*  color: #676666;*/
+
+
+/*}*/
 #frame .content .messages ul li.replies img {
   float: right;
   margin: 6px 0 0 8px;
 }
-#frame .content .messages ul li.replies span {
-  color: #676666;
-  float: right;
-  width: auto;
+/*#frame .content .messages ul li.replies .p > span {*/
+/*  color: #676666;*/
+/*  !*float: right;*!*/
+/*  width: auto;*/
 
-  }
-#frame .content .messages ul li.replies p {
+/*  }*/
+#frame .content .messages ul li.replies p{
   background: #dcf8c6;
   float: right;
+  word-wrap: break-word;
 }
 
 #frame .content .messages ul li img {
@@ -617,6 +645,12 @@ body {
   max-width: 300px;
   line-height: 130%;
   font-size: 18px;
+}
+@media only screen and (max-width: 600px) {
+  .message-input {
+  height: 14%;
+
+}
 }
 @media screen and (min-width: 735px) {
   #frame .content .messages ul li p{
@@ -637,13 +671,19 @@ body {
 /*  }*/
 /*}*/
 .message-input {
+  margin-left: fill;
+  margin-right: fill;
   float: bottom;
-  height: 6%;
+  height: 12%;
   position: absolute;
   bottom: 0;
-  width: inherit;
+  width: 100%;
   z-index: 99;
 
+}
+#frame .content .message-input .reply-main {
+  /*padding: 2px 5px !important;*/
+  padding: inherit;
 }
 #frame .content .message-input .wrap {
   position: relative;
@@ -1145,9 +1185,7 @@ body {
   cursor: pointer;
 }
 
-.reply-main {
-  padding: 2px 5px !important;
-}
+
 
 .reply-main textarea {
   width: 100%;

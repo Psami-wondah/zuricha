@@ -18,11 +18,13 @@ class ChatConsumer(WebsocketConsumer):
     def new_message(self, data):
         self.room = get_object_or_404(Room, name = data['room'])
         author = data['from']
+
         author_user = User.objects.filter(username=author)[0]
         message = Message.objects.create(
             room= self.room,
             author = author_user,
-            content= data['message']
+            content= data['message'],
+
         )
         content = {
             'command': 'new_message',
@@ -42,7 +44,7 @@ class ChatConsumer(WebsocketConsumer):
         return {
             'author': message.author.username,
             'content': message.content,
-            'timestamp': str(message.timestamp),
+            'timestamp': str(message.timestamp.strftime("%I:%M %p %d/%m/%Y")),
         }
 
     commands = {
