@@ -16,7 +16,7 @@ body {
 #frame {
   width: 100%;
   min-width: 360px;
-
+  overflow: hidden;
   height: 100vh;
   min-height: 300px;
   background: #E6EAEA;
