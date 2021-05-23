@@ -644,7 +644,8 @@ body {
   font-size: 1rem;
   color: #95a5a6;
   margin-left: 2%;
-  margin-top: 2%;
+  margin-top: 10%;
+
 }
 
 
@@ -713,7 +714,7 @@ body {
   margin-right: fill;
   float: bottom;
   height: auto;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   z-index: 99;
